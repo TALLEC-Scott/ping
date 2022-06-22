@@ -11,12 +11,7 @@ import java.io.IOException;
 
 public class Clean implements Feature {
 
-    ExecutionReport report = new ExecutionReport() {
-        @Override
-        public boolean isSuccess() {
-            return false;
-        }
-    };
+
     public ExecutionReport execute(Project project, Object... params) {
         var root = project.getRootNode().getPath().toAbsolutePath();
         Process pr;
@@ -24,12 +19,11 @@ public class Clean implements Feature {
         int exitValue;
 
 
-
-
+        ExecutionReport report;
         try {
-            pr = Runtime.getRuntime().exec("mvn clean", null, new File(root.toString()) );
-             exitValue =pr.waitFor();
-             isSucess = (exitValue == 0);
+            pr = Runtime.getRuntime().exec("mvn clean", null, new File(root.toString()));
+            exitValue = pr.waitFor();
+            isSucess = (exitValue == 0);
 
         } catch (IOException | InterruptedException e) {
 
@@ -37,7 +31,7 @@ public class Clean implements Feature {
             //throw new RuntimeException(e);
         } finally {
             boolean finalIsSucess = isSucess;
-            ExecutionReport report = new ExecutionReport() {
+            report = new ExecutionReport() {
                 @Override
                 public boolean isSuccess() {
                     return finalIsSucess;
