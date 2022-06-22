@@ -3,11 +3,28 @@ package fr.epita.assistants.features;
 import fr.epita.assistants.myide.domain.entity.Feature;
 import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+
+import java.io.IOException;
 
 public class Push implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return null;
+        Git git = null;
+        try {
+            git = Git.open(project.getRootNode().getPath().toFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            git.push().call();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+
+        return () -> true;
     }
 
     @Override

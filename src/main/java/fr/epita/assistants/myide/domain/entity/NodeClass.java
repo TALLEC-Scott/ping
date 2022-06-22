@@ -48,5 +48,8 @@ public class NodeClass implements Node{
         return childs;
     }
 
-
+    @Override
+    public String toString(){
+        return path.toString();
+    }
 }
