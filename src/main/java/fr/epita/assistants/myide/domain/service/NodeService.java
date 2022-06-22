@@ -3,6 +3,8 @@ package fr.epita.assistants.myide.domain.service;
 import fr.epita.assistants.myide.domain.entity.Node;
 import fr.epita.assistants.utils.Given;
 
+import java.io.IOException;
+
 @Given()
 public interface NodeService {
 
@@ -19,7 +21,7 @@ public interface NodeService {
     Node update(final Node node,
                 final int from,
                 final int to,
-                final byte[] insertedContent);
+                final byte[] insertedContent) throws IOException;
 
     /**
      * Delete the node given as parameter.
@@ -40,7 +42,7 @@ public interface NodeService {
      */
     Node create(final Node folder,
                 final String name,
-                final Node.Type type);
+                final Node.Type type) throws IOException;
 
     /**
      * Move node from source to destination.
