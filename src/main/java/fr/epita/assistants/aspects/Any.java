@@ -7,6 +7,7 @@ import fr.epita.assistants.myide.domain.entity.Aspect;
 import fr.epita.assistants.myide.domain.entity.Feature;
 import fr.epita.assistants.myide.domain.entity.Mandatory;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
