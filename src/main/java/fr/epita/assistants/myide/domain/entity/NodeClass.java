@@ -19,7 +19,10 @@ public class NodeClass implements Node{
     public NodeClass(Node Parent, String name, Type type) {
         this.name = name;
         this.type = type;
-        this.path = Paths.get(Parent.getPath().toString(), name);
+        if (Parent == null)
+            this.path = Paths.get(name);
+        else
+            this.path = Paths.get(Parent.getPath().toString(), name);
     }
 
     @Override
