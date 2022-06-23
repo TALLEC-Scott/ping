@@ -11,20 +11,30 @@ import java.nio.file.Path;
 
 public class NodeServiceClass implements NodeService {
     @Override
-    public Node update(Node node, int from, int to, byte[] insertedContent) throws IOException {
+    public Node update(Node node, int from, int to, byte[] insertedContent)  {
         if (node.isFolder())
             throw new RuntimeException("cannot update a folder");
         Path fileName = node.getPath().toAbsolutePath();
 
-        String content = Files.readString(fileName);
+        String content = null;
+        try {
+            content = Files.readString(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < content.length() || i < insertedContent.length; i++) {
             if (i >= from && i < to)
                 content = content.substring(0, i) + insertedContent[i] + content.substring(i + 1);
         }
-        FileWriter writer = new FileWriter(new File(fileName.toString()));
-        writer.write(content);
-        return null;
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(new File(fileName.toString()));
+            writer.write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return node;
     }
 
     @Override
@@ -34,10 +44,14 @@ public class NodeServiceClass implements NodeService {
     }
 
     @Override
-    public Node create(Node folder, String name, Node.Type type) throws IOException {
+    public Node create(Node folder, String name, Node.Type type)  {
         Node node = new NodeClass(folder, name, type);
         File file = new File(node.getPath().toString());
-        file.createNewFile();
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return node;
     }
 

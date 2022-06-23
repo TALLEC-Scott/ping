@@ -21,7 +21,7 @@ public interface NodeService {
     Node update(final Node node,
                 final int from,
                 final int to,
-                final byte[] insertedContent) throws IOException;
+                final byte[] insertedContent) ;
 
     /**
      * Delete the node given as parameter.
@@ -42,7 +42,7 @@ public interface NodeService {
      */
     Node create(final Node folder,
                 final String name,
-                final Node.Type type) throws IOException;
+                final Node.Type type) ;
 
     /**
      * Move node from source to destination.
