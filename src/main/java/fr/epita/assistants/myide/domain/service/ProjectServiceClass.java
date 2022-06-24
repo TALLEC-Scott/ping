@@ -9,16 +9,14 @@ import java.nio.file.Path;
 public class ProjectServiceClass implements ProjectService{
 
     final NodeService nodeService;
-    Project project;
 
-    public ProjectServiceClass(NodeService nodeService) {
-        this.nodeService = nodeService;
+    public ProjectServiceClass() {
+        this.nodeService = new NodeServiceClass();
     }
 
     @Override
     public Project load(Path root) {
-        this.project = new ProjectClass(root);
-        return project;
+        return new ProjectClass(root);
     }
 
     @Override
