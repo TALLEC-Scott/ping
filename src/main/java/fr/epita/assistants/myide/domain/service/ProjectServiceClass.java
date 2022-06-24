@@ -8,8 +8,8 @@ import java.nio.file.Path;
 
 public class ProjectServiceClass implements ProjectService{
 
-    private NodeService nodeService;
-    private Project project;
+    final NodeService nodeService;
+    Project project;
 
     public ProjectServiceClass(NodeService nodeService) {
         this.nodeService = nodeService;
@@ -22,8 +22,12 @@ public class ProjectServiceClass implements ProjectService{
     }
 
     @Override
-    public Feature.ExecutionReport execute(Project project, Feature.Type featureType, Object... params) {
-        return null;
+    public Feature.ExecutionReport execute(Project project, Feature.Type featureType, Object... params) throws Exception {
+        var check = project.getFeature(featureType);
+        if (check.isEmpty())
+            throw new Exception("feature not queried");
+        var feature = check.get();
+        return feature.execute(project, params);
     }
 
     @Override
