@@ -1,6 +1,9 @@
 package fr.epita.assistants;
 
+import fr.epita.assistants.myide.domain.service.NodeService;
+import fr.epita.assistants.myide.domain.service.NodeServiceClass;
 import fr.epita.assistants.myide.domain.service.ProjectService;
+import fr.epita.assistants.myide.domain.service.ProjectServiceClass;
 import fr.epita.assistants.utils.Given;
 
 import java.nio.file.Path;
@@ -18,7 +21,8 @@ public class MyIde {
      * @return An implementation of {@link ProjectService}.
      */
     public static ProjectService init(final Configuration configuration) {
-        throw new UnsupportedOperationException("FIXME");
+        //throw new UnsupportedOperationException(
+        return new ProjectServiceClass();
     }
 
     /**
