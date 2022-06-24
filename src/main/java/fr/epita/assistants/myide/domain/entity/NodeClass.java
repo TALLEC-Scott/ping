@@ -11,6 +11,7 @@ import java.util.Objects;
 
 public class NodeClass implements Node{
 
+
     private String name;
 
     private Node.Type type;
@@ -23,6 +24,10 @@ public class NodeClass implements Node{
             this.path = Paths.get(name);
         else
             this.path = Paths.get(Parent.getPath().toString(), name);
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

@@ -20,10 +20,10 @@ public class ProjectServiceClass implements ProjectService{
     }
 
     @Override
-    public Feature.ExecutionReport execute(Project project, Feature.Type featureType, Object... params) throws Exception {
+    public Feature.ExecutionReport execute(Project project, Feature.Type featureType, Object... params)  {
         var check = project.getFeature(featureType);
         if (check.isEmpty())
-            throw new Exception("feature not queried");
+             return null;
         var feature = check.get();
         return feature.execute(project, params);
     }

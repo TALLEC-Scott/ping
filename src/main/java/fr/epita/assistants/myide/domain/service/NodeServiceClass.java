@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
 public class NodeServiceClass implements NodeService {
     @Override
     public Node update(Node node, int from, int to, byte[] insertedContent)  {
@@ -57,6 +59,14 @@ public class NodeServiceClass implements NodeService {
 
     @Override
     public Node move(Node nodeToMove, Node destinationFolder) {
-        return null;
+        try {
+            Files.move(nodeToMove.getPath(), destinationFolder.getPath(), REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // very dangerous cast, do not try this at home or at school (with Jhon Cena's voice)
+        NodeClass sourceNode = (NodeClass) nodeToMove;
+        return new NodeClass(destinationFolder, sourceNode.getName(), nodeToMove.getType());
     }
 }

@@ -32,7 +32,7 @@ public interface ProjectService {
      */
     @NotNull Feature.ExecutionReport execute(@NotNull final Project project,
                                              @NotNull final Feature.Type featureType,
-                                             final Object... params) throws Exception;
+                                             final Object... params) ;
 
     /**
      * @return The {@link NodeService} associated with your {@link ProjectService}
