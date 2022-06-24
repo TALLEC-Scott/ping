@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Cleanup implements Feature {
@@ -24,7 +25,7 @@ public class Cleanup implements Feature {
                     findFile(elt, file);
                 else if (file.equalsIgnoreCase(elt.getName()))
                 {
-                    File tmp = new File(dir.getAbsolutePath() + "\\" + file);
+                    File tmp = new File(Paths.get(dir.getAbsolutePath(), file).toString());
                     tmp.delete();
                     return;
                 }
@@ -36,7 +37,7 @@ public class Cleanup implements Feature {
     public ExecutionReport execute(Project project, Object... params) {
         Path root =  project.getRootNode().getPath();
 
-        File trash_file = new File(root.toString() + "\\.myideignore");
+        File trash_file = new File(Paths.get(root.toString() ,  ".myideignore").toString());
         File project_path = new File(root.toString());
 
         Scanner reader = null;
