@@ -16,6 +16,7 @@ public class Commit implements Feature {
             git = Git.open(project.getRootNode().getPath().toFile());
         } catch (IOException e) {
             e.printStackTrace();
+            return () -> false;
         }
 
         int counter = 1;
@@ -24,6 +25,7 @@ public class Commit implements Feature {
                 git.commit().setMessage("commit" + counter).call();
             } catch (GitAPIException e) {
                 e.printStackTrace();
+                return () -> false;
             }
             counter++;
         }

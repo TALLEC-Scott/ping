@@ -17,12 +17,14 @@ public class Pull implements Feature {
             git = Git.open(project.getRootNode().getPath().toFile());
         } catch (IOException e) {
             e.printStackTrace();
+            return () -> false;
         }
 
         try {
             git.pull().call();
         } catch (GitAPIException e) {
             e.printStackTrace();
+            return () -> false;
         }
 
         return () -> true;

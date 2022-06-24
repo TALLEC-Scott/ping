@@ -18,6 +18,7 @@ public class Add implements Feature {
             git = Git.open(project.getRootNode().getPath().toFile());
         } catch (IOException e) {
             e.printStackTrace();
+            return () -> false;
         }
 
         for (var arg : params){
@@ -25,6 +26,7 @@ public class Add implements Feature {
                 git.add().addFilepattern(arg.toString()).call();
             } catch (GitAPIException e) {
                 e.printStackTrace();
+                return () -> false;
             }
         }
 

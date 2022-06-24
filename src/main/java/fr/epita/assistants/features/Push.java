@@ -16,12 +16,14 @@ public class Push implements Feature {
             git = Git.open(project.getRootNode().getPath().toFile());
         } catch (IOException e) {
             e.printStackTrace();
+            return () -> false;
         }
 
         try {
             git.push().call();
         } catch (GitAPIException e) {
             e.printStackTrace();
+            return () -> false;
         }
 
         return () -> true;
