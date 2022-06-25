@@ -18,8 +18,9 @@ public class ProjectClass implements Project {
     private Node RootNode;
 
     public ProjectClass(Path rootNode) {
-
-        RootNode = new NodeClass(null, rootNode.toString(), Node.Types.FOLDER);
+        String name = rootNode.getFileName().toString();
+        Path parent = rootNode.getParent();
+        RootNode = new NodeClass(parent, name, Node.Types.FOLDER);
     }
 
 

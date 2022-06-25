@@ -17,13 +17,10 @@ public class NodeClass implements Node{
     private Node.Type type;
     private Path path;
 
-    public NodeClass(Node Parent, String name, Type type) {
+    public NodeClass(Path Parent, String name, Type type) {
         this.name = name;
         this.type = type;
-        if (Parent == null)
-            this.path = Paths.get(name);
-        else
-            this.path = Paths.get(Parent.getPath().toString(), name);
+        this.path = Paths.get(Parent.toString(), name);
     }
 
     public String getName() {
@@ -47,9 +44,9 @@ public class NodeClass implements Node{
             File folder = new File(path.toString());
             for (File fileEntry : Objects.requireNonNull(folder.listFiles())) {
                 if (fileEntry.isDirectory()) {
-                    childs.add(new NodeClass(this, fileEntry.getName(), Types.FOLDER));
+                    childs.add(new NodeClass(this.path, fileEntry.getName(), Types.FOLDER));
                 } else {
-                    childs.add(new NodeClass(this, fileEntry.getName(), Types.FILE));
+                    childs.add(new NodeClass(this.path, fileEntry.getName(), Types.FILE));
                 }
             }
         }
