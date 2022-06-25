@@ -19,15 +19,15 @@ public class Dist implements Feature {
         File[] files_list = dir.listFiles();
         try {
             for (File elt : files_list) {
-                if (elt.isDirectory())
+                if (elt.isDirectory() && !elt.getName().contains(".zip"))
                 {
                     Path tmp = Paths.get(elt.getAbsolutePath());
-                    ZipEntry ze = new ZipEntry(base_path.relativize(tmp)+ "\\");
+                    ZipEntry ze = new ZipEntry(base_path.relativize(tmp)+ "/");
                     zos.putNextEntry(ze);
                     zipFiles(elt, zos, base_path);
                     zos.closeEntry();
                 }
-                else
+                else if (elt.isFile() && !elt.getName().contains(".zip"))
                 {
                     FileInputStream fis = new FileInputStream(elt);
                     BufferedInputStream bis = new BufferedInputStream(fis, 1024);
@@ -63,7 +63,7 @@ public class Dist implements Feature {
                     .execute(project);
 
             File project_path = new File(root);
-            FileOutputStream fos = new FileOutputStream(root.concat(".zip"));
+            FileOutputStream fos = new FileOutputStream(root + "/" + project_path.getName() + ".zip");
             ZipOutputStream zos = new ZipOutputStream(fos);
 
             Path base_path = Paths.get(root);
