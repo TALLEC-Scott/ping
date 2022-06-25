@@ -9,10 +9,10 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class Install extends Maven implements Feature {
+public class Install implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn install ", project, params);
+        return MavenExec._execute("mvn install", project, params);
     }
 
     @Override

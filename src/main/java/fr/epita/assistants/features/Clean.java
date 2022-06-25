@@ -9,12 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class Clean extends Maven implements Feature {
-
-
+public class Clean implements Feature {
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn clean ", project, params);
-
+        return MavenExec._execute("mvn clean", project, params);
     }
 
     @Override
