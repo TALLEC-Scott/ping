@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Compile implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return MavenExec._execute("mvn compile", project, params);
+        return Maven._execute("mvn compile ", project, params);
     }
 
     @Override

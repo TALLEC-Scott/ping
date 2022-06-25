@@ -12,8 +12,7 @@ import java.io.IOException;
 public class Exec implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-
-        return MavenExec._execute("mvn exec", project, params);
+        return Maven._execute("mvn exec ", project, params);
     }
 
     @Override

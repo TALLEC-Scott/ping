@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Clean implements Feature {
     public ExecutionReport execute(Project project, Object... params) {
-        return MavenExec._execute("mvn clean", project, params);
+        return Maven._execute("mvn clean ", project, params);
     }
 
     @Override
