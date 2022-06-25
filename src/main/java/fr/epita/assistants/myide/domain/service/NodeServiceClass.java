@@ -47,7 +47,7 @@ public class NodeServiceClass implements NodeService {
 
     @Override
     public Node create(Node folder, String name, Node.Type type)  {
-        Node node = new NodeClass(folder, name, type);
+        Node node = new NodeClass(folder.getPath(), name, type);
         File file = new File(node.getPath().toString());
         try {
             file.createNewFile();
@@ -67,6 +67,6 @@ public class NodeServiceClass implements NodeService {
 
         // very dangerous cast, do not try this at home or at school (with Jhon Cena's voice)
         NodeClass sourceNode = (NodeClass) nodeToMove;
-        return new NodeClass(destinationFolder, sourceNode.getName(), nodeToMove.getType());
+        return new NodeClass(destinationFolder.getPath(), sourceNode.getName(), nodeToMove.getType());
     }
 }
