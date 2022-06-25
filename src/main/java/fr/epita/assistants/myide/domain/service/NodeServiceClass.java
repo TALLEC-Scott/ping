@@ -6,8 +6,14 @@ import fr.epita.assistants.myide.domain.entity.NodeClass;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.apache.commons.io.FileUtils;
+import java.lang.StringBuffer;
+import java.util.Arrays;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -17,22 +23,25 @@ public class NodeServiceClass implements NodeService {
         if (node.isFolder())
             throw new RuntimeException("cannot update a folder");
         Path fileName = node.getPath().toAbsolutePath();
-
-        String content = null;
+        String content = "";
         try {
             content = Files.readString(fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        StringBuilder contBuf = new StringBuilder(content);
+        contBuf.delete(from, to);
+        String toInsert = new String(insertedContent);
+        contBuf.insert(from, toInsert);
+        content = contBuf.toString();
 
-        for (int i = 0; i < content.length() || i < insertedContent.length; i++) {
-            if (i >= from && i < to)
-                content = content.substring(0, i) + insertedContent[i] + content.substring(i + 1);
-        }
+        System.out.println(content);
+
         FileWriter writer = null;
         try {
-            writer = new FileWriter(new File(fileName.toString()));
+            writer = new FileWriter(fileName.toString());
             writer.write(content);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,6 +51,14 @@ public class NodeServiceClass implements NodeService {
     @Override
     public boolean delete(Node node) {
         File file = new File(node.getPath().toString());
+        if (node.isFolder()) {
+            try {
+                FileUtils.deleteDirectory(file);
+            } catch (IOException e) {
+                return false;
+            }
+            return true;
+        }
         return file.delete();
     }
 
@@ -50,7 +67,10 @@ public class NodeServiceClass implements NodeService {
         Node node = new NodeClass(folder.getPath(), name, type);
         File file = new File(node.getPath().toString());
         try {
-            file.createNewFile();
+            if (node.isFolder())
+                file.mkdir();
+            else
+                file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +80,8 @@ public class NodeServiceClass implements NodeService {
     @Override
     public Node move(Node nodeToMove, Node destinationFolder) {
         try {
-            Files.move(nodeToMove.getPath(), destinationFolder.getPath(), REPLACE_EXISTING);
+            Files.move(nodeToMove.getPath(), Paths.get(destinationFolder.getPath().toString(), nodeToMove.getPath().getFileName().toString()), REPLACE_EXISTING);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
