@@ -30,37 +30,30 @@ public class Maven implements Aspect {
         ftrs.add(new Tree());
         return ftrs;
     }
-    public Feature.ExecutionReport _execute(String base_cmd, Project project, Object... params) {
+    static public Feature.ExecutionReport _execute(String base_cmd, Project project, Object... params) {
         var root = project.getRootNode().getPath().toAbsolutePath();
         Process pr;
-        boolean isSucess = true;
-        int exitValue;
+        int exitValue = -1;
         StringBuilder stringBuilder = new StringBuilder(base_cmd);
         for (var param: params) {
             stringBuilder.append(param);
         }
         String cmd = stringBuilder.toString();
 
-
-        Feature.ExecutionReport report;
         try {
             pr = Runtime.getRuntime().exec(cmd, null, new File(root.toString()));
             exitValue = pr.waitFor();
-            isSucess = (exitValue == 0);
 
         } catch (IOException | InterruptedException e) {
 
-            isSucess = false;
+            return () -> false;
+
             //throw new RuntimeException(e);
-        } finally {
-            boolean finalIsSucess = isSucess;
-            report = new Feature.ExecutionReport() {
-                @Override
-                public boolean isSuccess() {
-                    return finalIsSucess;
-                }
-            };
         }
-        return report;
+        if (exitValue != 0)
+            return ()-> false;
+
+
+        return ()-> true;
     }
 }
