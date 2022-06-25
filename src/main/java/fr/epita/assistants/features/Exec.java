@@ -9,11 +9,10 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class Exec extends Maven implements Feature {
+public class Exec implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-
-        return _execute("mvn exec ", project, params);
+        return Maven._execute("mvn exec ", project, params);
     }
 
     @Override

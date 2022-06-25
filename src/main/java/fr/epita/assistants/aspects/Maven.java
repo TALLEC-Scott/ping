@@ -4,6 +4,7 @@ import fr.epita.assistants.features.*;
 import fr.epita.assistants.features.Package;
 import fr.epita.assistants.myide.domain.entity.Aspect;
 import fr.epita.assistants.myide.domain.entity.Feature;
+import fr.epita.assistants.myide.domain.entity.Feature.ExecutionReport;
 import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 
@@ -36,6 +37,7 @@ public class Maven implements Aspect {
         int exitValue = -1;
         StringBuilder stringBuilder = new StringBuilder(base_cmd);
         for (var param: params) {
+            stringBuilder.append(" ");
             stringBuilder.append(param);
         }
         String cmd = stringBuilder.toString();
