@@ -19,15 +19,11 @@ public class Commit implements Feature {
             return () -> false;
         }
 
-        int counter = 1;
-        for (var arg : params){
-            try {
-                git.commit().setMessage("commit" + counter).call();
-            } catch (GitAPIException e) {
-                e.printStackTrace();
-                return () -> false;
-            }
-            counter++;
+        try {
+            git.commit().setMessage((String) params[0]).call();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+            return () -> false;
         }
 
         return () -> true;
