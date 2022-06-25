@@ -17,6 +17,6 @@ public class Test extends Maven implements Feature {
 
     @Override
     public Feature.@NotNull Type type() {
-        return Mandatory.Features.Maven.TREE;
+        return Mandatory.Features.Maven.TEST;
     }
 }
