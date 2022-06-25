@@ -1,10 +1,15 @@
 package fr.epita.assistants.myide.domain.service;
 
+import fr.epita.assistants.features.Clean;
+import fr.epita.assistants.features.Install;
+import fr.epita.assistants.features.Package;
+import fr.epita.assistants.features.Tree;
 import fr.epita.assistants.myide.domain.entity.Feature;
 import fr.epita.assistants.myide.domain.entity.Project;
 import fr.epita.assistants.myide.domain.entity.ProjectClass;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ProjectServiceClass implements ProjectService{
 
@@ -32,4 +37,5 @@ public class ProjectServiceClass implements ProjectService{
     public NodeService getNodeService() {
         return this.nodeService;
     }
+    
 }

@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Clean implements Feature {
-    
+
 
     @Override
     public ExecutionReport execute(Project project, Object... params) {
