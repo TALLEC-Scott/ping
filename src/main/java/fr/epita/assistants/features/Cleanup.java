@@ -10,11 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Cleanup implements Feature {
 
-    public void findFile(File dir, String file)
+    public void findFile(File dir, List<String> files)
     {
         File[] list = dir.listFiles();
         if (list != null)
@@ -22,12 +24,18 @@ public class Cleanup implements Feature {
             for (File elt : list)
             {
                 if (elt.isDirectory())
-                    findFile(elt, file);
-                else if (file.equalsIgnoreCase(elt.getName()))
+                    findFile(elt, files);
+                else
                 {
-                    File tmp = new File(Paths.get(dir.getAbsolutePath(), file).toString());
-                    tmp.delete();
-                    return;
+                    for (int i = 0; i < files.size(); i++)
+                    {
+                        if (elt.getName().equals(files.get(i)))
+                        {
+                            File tmp = new File(Paths.get(dir.getAbsolutePath(), elt.getName()).toString());
+                            tmp.delete();
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -48,10 +56,13 @@ public class Cleanup implements Feature {
             return () -> false;
         }
 
+        List<String> files = new ArrayList<>();
         while (reader.hasNextLine()) {
             String name = reader.nextLine();
-            findFile(project_path, name);
+            files.add(name);
         }
+
+        findFile(project_path, files);
 
         return () -> true;
     }
