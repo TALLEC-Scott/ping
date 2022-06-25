@@ -19,8 +19,13 @@ public class Commit implements Feature {
             return () -> false;
         }
 
+        var msg = "";
+
+        for (var str : params){
+            msg += params;
+        }
         try {
-            git.commit().setMessage((String) params[0]).call();
+            git.commit().setMessage(msg).call();
         } catch (GitAPIException e) {
             e.printStackTrace();
             return () -> false;
