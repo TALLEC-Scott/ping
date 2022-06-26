@@ -4,6 +4,7 @@ import fr.epita.assistants.features.*;
 import fr.epita.assistants.features.Package;
 import fr.epita.assistants.myide.domain.entity.Aspect;
 import fr.epita.assistants.myide.domain.entity.Feature;
+import fr.epita.assistants.myide.domain.entity.Feature.ExecutionReport;
 import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 
@@ -30,7 +31,7 @@ public class Maven implements Aspect {
         features.add(new Tree());
         return features;
     }
-    public Feature.ExecutionReport _execute(String base_cmd, Project project, Object... params) {
+    static public Feature.ExecutionReport _execute(String base_cmd, Project project, Object... params) {
         var root = project.getRootNode().getPath().toAbsolutePath();
         Process pr;
         int exitValue;

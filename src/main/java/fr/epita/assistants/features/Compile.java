@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class Compile extends Maven implements Feature {
+public class Compile implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
 
-        return _execute("compile", project, params);
+        return Maven._execute("compile", project, params);
     }
 
     @Override
