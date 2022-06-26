@@ -13,7 +13,7 @@ public class Compile extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
 
-        return _execute("mvn compile ", project, params);
+        return _execute("compile", project, params);
     }
 
     @Override

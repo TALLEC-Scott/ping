@@ -13,7 +13,7 @@ public class Exec extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
 
-        return _execute("mvn exec ", project, params);
+        return _execute("exec:java", project, params);
     }
 
     @Override

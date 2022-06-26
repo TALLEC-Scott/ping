@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Test extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn test ", project, params);
+        return _execute("test", project, params);
     }
 
     @Override

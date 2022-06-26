@@ -38,5 +38,6 @@ public interface Project {
     default @NotNull List<@NotNull Feature> getFeatures() {
         return getAspects().stream().map(Aspect::getFeatureList).flatMap(Collection::stream).toList();
     }
+
 }
 

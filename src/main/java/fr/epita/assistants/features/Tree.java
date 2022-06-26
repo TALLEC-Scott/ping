@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Tree extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn dependency:tree ", project, params);
+        return _execute("dependency:tree", project, params);
     }
 
     @Override

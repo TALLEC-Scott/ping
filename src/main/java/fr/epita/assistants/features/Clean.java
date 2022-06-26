@@ -13,7 +13,7 @@ public class Clean extends Maven implements Feature {
 
 
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn clean ", project, params);
+        return _execute("clean", project, params);
 
     }
 

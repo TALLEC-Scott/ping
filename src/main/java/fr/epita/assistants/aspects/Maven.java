@@ -20,47 +20,40 @@ public class Maven implements Aspect {
 
     @Override
     public List<Feature> getFeatureList() {
-        List<Feature> ftrs = new ArrayList<>();
-        ftrs.add(new Compile());
-        ftrs.add(new Clean());
-        ftrs.add(new Test());
-        ftrs.add(new Package());
-        ftrs.add(new Install());
-        ftrs.add(new Exec());
-        ftrs.add(new Tree());
-        return ftrs;
+        List<Feature> features = new ArrayList<>();
+        features.add(new Compile());
+        features.add(new Clean());
+        features.add(new Test());
+        features.add(new Package());
+        features.add(new Install());
+        features.add(new Exec());
+        features.add(new Tree());
+        return features;
     }
     public Feature.ExecutionReport _execute(String base_cmd, Project project, Object... params) {
         var root = project.getRootNode().getPath().toAbsolutePath();
         Process pr;
-        boolean isSucess = true;
         int exitValue;
-        StringBuilder stringBuilder = new StringBuilder(base_cmd);
+        StringBuilder stringBuilder = new StringBuilder("mvn.cmd ");
+        // mvn.cmd and not mvn Cause Java calls the Win32 API function CreateProcess which
+        // assumes a .exe extension contrary to the terminal's interpreter like bash or cmd
+        stringBuilder.append(base_cmd);
         for (var param: params) {
+            stringBuilder.append(" ");
             stringBuilder.append(param);
         }
         String cmd = stringBuilder.toString();
 
-
-        Feature.ExecutionReport report;
         try {
             pr = Runtime.getRuntime().exec(cmd, null, new File(root.toString()));
             exitValue = pr.waitFor();
-            isSucess = (exitValue == 0);
 
-        } catch (IOException | InterruptedException e) {
-
-            isSucess = false;
-            //throw new RuntimeException(e);
-        } finally {
-            boolean finalIsSucess = isSucess;
-            report = new Feature.ExecutionReport() {
-                @Override
-                public boolean isSuccess() {
-                    return finalIsSucess;
-                }
-            };
+        } catch (IOException | InterruptedException e)
+        {
+            return () -> false;
         }
-        return report;
+        if (exitValue == 0)
+            return () -> true;
+        return () -> false;
     }
 }

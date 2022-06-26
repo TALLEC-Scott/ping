@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Install extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn install ", project, params);
+        return _execute("install", project, params);
     }
 
     @Override

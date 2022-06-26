@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class Package extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
-        return _execute("mvn package ", project, params);
+        return _execute("package", project, params);
     }
 
     @Override

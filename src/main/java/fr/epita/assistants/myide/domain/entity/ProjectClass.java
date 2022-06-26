@@ -3,9 +3,6 @@ package fr.epita.assistants.myide.domain.entity;
 import fr.epita.assistants.aspects.Any;
 import fr.epita.assistants.aspects.Git;
 import fr.epita.assistants.aspects.Maven;
-import fr.epita.assistants.features.Add;
-import fr.epita.assistants.features.Push;
-import org.apache.commons.lang3.EnumUtils;
 
 import java.io.File;
 import java.nio.file.Path;
