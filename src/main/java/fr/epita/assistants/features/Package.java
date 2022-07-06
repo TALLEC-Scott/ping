@@ -7,7 +7,7 @@ import fr.epita.assistants.myide.domain.entity.Project;
 
 import javax.validation.constraints.NotNull;
 
-public class Package implements Feature {
+public class Package extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
         return Maven._execute("package", project, params);

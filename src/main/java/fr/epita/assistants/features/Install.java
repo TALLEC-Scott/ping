@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class Install implements Feature {
+public class Install extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
         return Maven._execute("install", project, params);

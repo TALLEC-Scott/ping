@@ -6,10 +6,8 @@ import fr.epita.assistants.myide.domain.entity.Mandatory;
 import fr.epita.assistants.myide.domain.entity.Project;
 
 import javax.validation.constraints.NotNull;
-import java.io.File;
-import java.io.IOException;
 
-public class Clean implements Feature {
+public class Clean extends Maven implements Feature {
 
     @Override
     public ExecutionReport execute(Project project, Object... params) {

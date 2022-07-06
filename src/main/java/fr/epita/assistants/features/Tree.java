@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 
-public class Tree implements Feature {
+public class Tree extends Maven implements Feature {
     @Override
     public ExecutionReport execute(Project project, Object... params) {
         return Maven._execute("dependency:tree", project, params);

@@ -1,7 +1,6 @@
-package Maven;
+package fr.epita.assistants.features;
 
-import fr.epita.assistants.features.*;
-import fr.epita.assistants.features.Package;
+
 import fr.epita.assistants.myide.domain.entity.Feature;
 import fr.epita.assistants.myide.domain.entity.ProjectClass;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class MavenTest {
 
 
-
-
-
     void GenericExecTest(ProjectClass project, Feature feat, Object... params)
     {
-        assertTrue(feat.execute(project, params).isSuccess(), feat + " Successful");
+        assertTrue(feat.execute(project, params).isSuccess(), feat + " Failed");
 
     }
     ProjectClass project;
